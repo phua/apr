@@ -1,0 +1,35 @@
+# Maintainer: phua <phua@users.noreply.github.com>
+
+# shellcheck disable=SC2034,SC2154,SC2164
+
+pkgname=google-java-format
+pkgver=1.35.0
+pkgrel=1
+epoch=
+pkgdesc="A program that reformats Java source code to comply with Google Java Style."
+arch=('any')
+url="https://github.com/google/google-java-format"
+license=('Apache-2.0')
+groups=()
+depends=('java-runtime>=21')
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("https://github.com/google/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}-all-deps.jar"
+        "https://github.com/google/${pkgname}/releases/download/v${pkgver}/${pkgname}-eclipse-plugin-${pkgver}.jar")
+noextract=("${pkgname}-${pkgver}-all-deps.jar"
+           "${pkgname}-eclipse-plugin-${pkgver}.jar")
+sha256sums=('bfb7f9ead6cd328389bc2da53860443bc0e805dfd08cc889bfdf43b26cb2a6e8'
+            '14e9d7c72cf0c638fcf019adc34f0c9d550708f1b8c2390a6407eeae8b0719f8')
+validpgpkeys=()
+
+package() {
+    install -D --target-directory "${pkgdir}/usr/share/java/${pkgname}" --mode 644 "${pkgname}-${pkgver}-all-deps.jar" "${pkgname}-eclipse-plugin-${pkgver}.jar"
+}
