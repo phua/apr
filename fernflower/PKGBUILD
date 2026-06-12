@@ -1,0 +1,49 @@
+# Maintainer: phua <phua@users.noreply.github.com>
+
+# shellcheck disable=SC2034,SC2154,SC2164
+
+pkgname=fernflower
+pkgver=261.25134.95
+pkgrel=1
+epoch=
+pkgdesc="An analytical decompiler for Java."
+arch=('any')
+url="https://github.com/JetBrains/fernflower"
+license=('Apache-2.0')
+groups=()
+depends=('java-runtime>=21')
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("${pkgname}-${pkgver}.jar::https://www.jetbrains.com/intellij-repository/releases/com/jetbrains/intellij/java/java-decompiler-engine/${pkgver}/java-decompiler-engine-${pkgver}.jar")
+noextract=("${pkgname}-${pkgver}.jar")
+sha256sums=('42c80bd7ffbd27f156f949040da2db04c5d1c230a05931cc4bf75d10adeb1cb0')
+validpgpkeys=()
+
+pkgver() {
+    curl --silent --location https://www.jetbrains.com/intellij-repository/releases/com/jetbrains/intellij/java/java-decompiler-engine/maven-metadata.xml | xmllint --xpath '/metadata/versioning/latest/text()' -
+}
+
+package() {
+    local destdir="${pkgdir}/usr/share/java/${pkgname}"
+
+    install -D --target-directory "${destdir}/lib" --mode 644 "${srcdir}/${pkgname}-${pkgver}.jar"
+
+    install --directory "${destdir}/bin"
+    cat << EOF > "${destdir}/bin/${pkgname}"
+#!/bin/sh
+
+/usr/bin/java -jar /usr/share/java/${pkgname}/lib/${pkgname}-${pkgver}.jar "\$@"
+EOF
+    chmod 755 "${destdir}/bin/${pkgname}"
+
+    install --directory "${pkgdir}/usr/bin"
+    ln --symbolic --target-directory "${pkgdir}/usr/bin" "/usr/share/java/${pkgname}/bin/${pkgname}"
+}
