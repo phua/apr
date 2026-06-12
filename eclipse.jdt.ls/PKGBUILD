@@ -1,0 +1,37 @@
+# Maintainer: phua <phua@users.noreply.github.com>
+
+# shellcheck disable=SC2034,SC2154,SC2164
+
+pkgname=eclipse.jdt.ls
+pkgver=1.58.0
+pkgrel=1
+epoch=
+pkgdesc="A Java language specific implementation of the Language Server Protocol."
+arch=('any')
+url="https://github.com/eclipse-jdtls/eclipse.jdt.ls"
+license=('EPL-2.0')
+groups=()
+depends=('java-runtime>=21')
+makedepends=()
+checkdepends=()
+optdepends=('python: jdtls wrapper support')
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("https://download.eclipse.org/jdtls/milestones/${pkgver}/jdt-language-server-${pkgver}-202604151538.tar.gz")
+noextract=()
+_sha256sum() {
+    curl --silent "https://download.eclipse.org/jdtls/milestones/${pkgver}/jdt-language-server-${pkgver}-202604151538.tar.gz.sha256"
+}
+sha256sums=("$(_sha256sum)")
+validpgpkeys=()
+
+package() {
+    install --directory "${pkgdir}/usr/share/java/${pkgname}" "${pkgdir}/usr/bin"
+    cp --recursive --target-directory "${pkgdir}/usr/share/java/${pkgname}" $(eval echo "${srcdir}/{bin,config_linux,config_ss_linux,features,plugins}")
+    ln --symbolic --target-directory "${pkgdir}/usr/bin" "/usr/share/java/${pkgname}/bin/jdtls"
+}
