@@ -1,0 +1,36 @@
+# Maintainer: phua <phua@users.noreply.github.com>
+
+# shellcheck disable=SC2034,SC2154,SC2164
+
+pkgname=java-debug
+pkgver=0.53.1
+pkgrel=1
+epoch=
+pkgdesc="An implementation of Visual Studio Code Debug Protocol."
+arch=('any')
+url="https://github.com/microsoft/java-debug"
+license=('EPL-1.0')
+groups=()
+depends=('java-runtime>=21')
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("https://repo1.maven.org/maven2/com/microsoft/java/com.microsoft.java.debug.plugin/${pkgver}/com.microsoft.java.debug.plugin-${pkgver}.jar")
+noextract=("com.microsoft.java.debug.plugin-${pkgver}.jar")
+sha256sums=('4f4778d452a6a0665536f43ce4e32403a24be6593336b80dc85a322912859e24')
+validpgpkeys=()
+
+pkgver() {
+    curl --silent --location https://repo1.maven.org/maven2/com/microsoft/java/com.microsoft.java.debug.plugin/maven-metadata.xml | xmllint --xpath '/metadata/versioning/latest/text()' -
+}
+
+package() {
+    install -D --target-directory "${pkgdir}/usr/share/java/${pkgname}" --mode 644 "${srcdir}/com.microsoft.java.debug.plugin-${pkgver}.jar"
+}
