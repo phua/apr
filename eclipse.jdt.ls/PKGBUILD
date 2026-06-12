@@ -22,7 +22,7 @@ backup=()
 options=()
 install=
 changelog=
-source=("https://download.eclipse.org/jdtls/milestones/${pkgver}/jdt-language-server-${pkgver}-202604151538.tar.gz")
+source=("${pkgname}-${pkgver}.tar.gz::https://download.eclipse.org/jdtls/milestones/${pkgver}/jdt-language-server-${pkgver}-202604151538.tar.gz")
 noextract=()
 _sha256sum() {
     curl --silent "https://download.eclipse.org/jdtls/milestones/${pkgver}/jdt-language-server-${pkgver}-202604151538.tar.gz.sha256"
