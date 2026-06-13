@@ -8,4 +8,6 @@ https://wiki.archlinux.org/title/Creating_packages
 git clone https://github.com/phua/apr.git
 # or, git clone git@github.com:phua/apr.git
 # or, gh repo clone phua/apr
+
+cd apr/${PROJECT} && make -f ../Makefile
 ```

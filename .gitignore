@@ -1,1 +1,6 @@
-#
+*.jar
+.nvchecker.toml
+pkg
+*.pkg.tar.zst
+src
+*.tar.gz
