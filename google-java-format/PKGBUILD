@@ -7,29 +7,29 @@ pkgver=1.35.0
 pkgrel=1
 epoch=
 pkgdesc="A program that reformats Java source code to comply with Google Java Style."
-arch=('any')
+arch=('x86_64')
 url="https://github.com/google/google-java-format"
 license=('Apache-2.0')
 groups=()
-depends=('java-runtime>=21')
+depends=()
 makedepends=()
 checkdepends=()
-optdepends=()
+optdepends=('java-environment>=21: jar support')
 provides=()
 conflicts=()
 replaces=()
 backup=()
-options=()
+options=('!debug')
 install=
 changelog=
 source=("https://github.com/google/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}-all-deps.jar"
-        "https://github.com/google/${pkgname}/releases/download/v${pkgver}/${pkgname}-eclipse-plugin-${pkgver}.jar")
-noextract=("${pkgname}-${pkgver}-all-deps.jar"
-           "${pkgname}-eclipse-plugin-${pkgver}.jar")
+        "https://github.com/google/${pkgname}/releases/download/v${pkgver}/${pkgname}_linux-x86-64")
+noextract=("${pkgname}-${pkgver}-all-deps.jar")
 sha256sums=('bfb7f9ead6cd328389bc2da53860443bc0e805dfd08cc889bfdf43b26cb2a6e8'
-            '14e9d7c72cf0c638fcf019adc34f0c9d550708f1b8c2390a6407eeae8b0719f8')
+            'e0f95ad6d26b8fbd5b1e3fd3014f8306c4eb3b29d2a6b15fab62d0a364629437')
 validpgpkeys=()
 
 package() {
-    install -D --target-directory "${pkgdir}/usr/share/java/${pkgname}" --mode 644 "${pkgname}-${pkgver}-all-deps.jar" "${pkgname}-eclipse-plugin-${pkgver}.jar"
+    install -D --mode 644 "${pkgname}-${pkgver}-all-deps.jar" "${pkgdir}/usr/share/java/${pkgname}/${pkgname}-${pkgver}-all-deps.jar"
+    install -D "${pkgname}_linux-x86-64" "${pkgdir}/usr/bin/${pkgname}"
 }
